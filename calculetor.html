@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        .calculator {
+            width: 300px;
+            background-color: #1c1c1c;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .display {
+            width: 100%;
+            height: 80px;
+            text-align: right;
+            font-size: 2.5em;
+            color: white;
+            border: none;
+            background: none;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            height: 60px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .gray { background: #a5a5a5; color: black; }
+        .orange { background: #ff9f0a; color: white; }
+        .dark { background: #333; color: white; }
+        .zero {
+            grid-column: span 2;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button class="gray" onclick="clearDisplay()">AC</button>
+            <button class="gray" onclick="appendSymbol('+/-')">+/-</button>
+            <button class="gray" onclick="appendSymbol('%')">%</button>
+            <button class="orange" onclick="appendSymbol('/')">&divide;</button>
+            <button class="dark" onclick="appendNumber(7)">7</button>
+            <button class="dark" onclick="appendNumber(8)">8</button>
+            <button class="dark" onclick="appendNumber(9)">9</button>
+            <button class="orange" onclick="appendSymbol('*')">&times;</button>
+            <button class="dark" onclick="appendNumber(4)">4</button>
+            <button class="dark" onclick="appendNumber(5)">5</button>
+            <button class="dark" onclick="appendNumber(6)">6</button>
+            <button class="orange" onclick="appendSymbol('-')">-</button>
+            <button class="dark" onclick="appendNumber(1)">1</button>
+            <button class="dark" onclick="appendNumber(2)">2</button>
+            <button class="dark" onclick="appendNumber(3)">3</button>
+            <button class="orange" onclick="appendSymbol('+')">+</button>
+            <button class="dark zero" onclick="appendNumber(0)">0</button>
+            <button class="dark" onclick="appendSymbol('.')">.</button>
+            <button class="orange" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function appendNumber(number) {
+            display.value += number;
+        }
+        
+        function appendSymbol(symbol) {
+            if (symbol === '+/-') {
+                display.value = display.value ? -parseFloat(display.value) : '';
+            } else {
+                display.value += symbol;
+            }
+        }
+        
+        function clearDisplay() {
+            display.value = '';
+        }
+        
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
